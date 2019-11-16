@@ -1,4 +1,5 @@
 package com.sparanzza.images;
 
-public class Image {
+public enum Image {
+	UFO, BOMB, LASER, SPACESHIP, BACKGROUND;
 }
