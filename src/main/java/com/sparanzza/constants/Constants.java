@@ -14,6 +14,9 @@ public class Constants {
 	public static final String BACKGROUND_IMAGE_URL = "resources/images/background.jpg";
 	public static final String SPACESHIP_IMAGE_URL = "resources/images/spaceship.png";
 	
+	//Speed
+	public static final int GAME_SPEED = 10;
+	
 	
 	private Constants() {
 	}
