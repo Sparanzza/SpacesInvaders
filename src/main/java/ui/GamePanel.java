@@ -4,6 +4,7 @@ import com.sparanzza.callbacks.GameEventListener;
 import com.sparanzza.constants.Constants;
 import com.sparanzza.images.Image;
 import com.sparanzza.images.ImageFactory;
+import model.Bomb;
 import model.EnemyShip;
 import model.Laser;
 import model.SpaceShip;
@@ -14,6 +15,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import static com.sparanzza.constants.Constants.*;
 
@@ -28,6 +30,9 @@ public class GamePanel extends JPanel {
 	private int direction = 1;
 	private List<EnemyShip> enemyShipList;
 	private int enemyShipPadding = 50;
+	
+	private List<Bomb> bombsList;
+	private Random generator;
 	
 	public GamePanel() {
 		initializeVariables();
@@ -47,11 +52,13 @@ public class GamePanel extends JPanel {
 	
 	private void initializeVariables() {
 		this.enemyShipList = new ArrayList<>();
+		this.bombsList = new ArrayList<>();
 		this.spaceShip = new SpaceShip();
 		this.laser = new Laser();
 		this.backgroundImage = ImageFactory.createImage(Image.BACKGROUND);
 		this.timer = new Timer(GAME_SPEED, new GameLoop(this));
 		this.timer.start();
+		this.generator = new Random();
 	}
 	
 	private void initializeLayout() {
@@ -83,11 +90,20 @@ public class GamePanel extends JPanel {
 			drawPlayer(g);
 			drawLaser(g);
 			drawAliens(g);
+			drawBombs(g);
 		} else {
 			if (timer.isRunning())
 				timer.stop();
 		}
 		Toolkit.getDefaultToolkit().sync();
+	}
+	
+	private void drawBombs(Graphics g) {
+		for (Bomb b : this.bombsList) {
+			if (!b.isDead()) {
+				g.drawImage(b.getImage(), b.getX(), b.getY(), this);
+			}
+		}
 	}
 	
 	private void drawAliens(Graphics g) {
@@ -119,12 +135,20 @@ public class GamePanel extends JPanel {
 				}
 			}
 			
-			
 			if (es.isVisible()) {
 				es.move(direction);
 			}
+			// generate bombs by ufo
+			if (es.isVisible() && generator.nextDouble() < Constants.BOMB_DROPPING_PROBABOLITY) {
+				Bomb bomb = new Bomb(es.getX(), es.getY());
+				this.bombsList.add(bomb);
+			}
 		}
-		
+		for (Bomb b : bombsList) {
+			if (!b.isDead()) {
+				b.move();
+			}
+		}
 	}
 	
 	public void keyPressed(KeyEvent e) {

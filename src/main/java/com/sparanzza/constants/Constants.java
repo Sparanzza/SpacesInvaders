@@ -26,6 +26,7 @@ public class Constants {
 	public static final int ENEMYSHIP_COLUMNS = 8;
 	public static final int ENEMYSHIP_INIT_X = 280;
 	public static final int ENEMYSHIP_INIT_Y = 100;
+	public static final int BOMB_HEIGHT = 6;
 	
 	
 	// speed of the laser
@@ -35,6 +36,7 @@ public class Constants {
 	public static final int BORDER_PADDING = 50;
 	
 	public static final int GO_DOWN = 30;
+	public static final double BOMB_DROPPING_PROBABOLITY = 0.001;
 	
 	private Constants() {
 	}
