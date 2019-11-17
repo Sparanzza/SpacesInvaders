@@ -18,8 +18,15 @@ public class Constants {
 	public static final int GAME_SPEED = 10;
 	
 	//Sizes images
-	public static final int SPACESHIP_HEIGHT = 34;
 	public static final int SPACESHIP_WIDTH = 28;
+	public static final int SPACESHIP_HEIGHT = 34;
+	public static final int ENEMYSHIP_WIDTH = 32;
+	public static final int ENEMYSHIP_HEIGHT = 24;
+	public static final int ENEMYSHIP_ROW = 4;
+	public static final int ENEMYSHIP_COLUMNS = 8;
+	public static final int ENEMYSHIP_INIT_X = 280;
+	public static final int ENEMYSHIP_INIT_Y = 100;
+	
 	
 	// speed of the laser
 	public static final int LASER_VERTICAL_TRANSLATION = 4;
@@ -28,3 +35,4 @@ public class Constants {
 	private Constants() {
 	}
 }
+

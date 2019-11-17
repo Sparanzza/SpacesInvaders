@@ -4,12 +4,15 @@ import com.sparanzza.callbacks.GameEventListener;
 import com.sparanzza.constants.Constants;
 import com.sparanzza.images.Image;
 import com.sparanzza.images.ImageFactory;
+import model.EnemyShip;
 import model.Laser;
 import model.SpaceShip;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.sparanzza.constants.Constants.BOARD_HEIGHT;
 import static com.sparanzza.constants.Constants.GAME_SPEED;
@@ -21,12 +24,29 @@ public class GamePanel extends JPanel {
 	private SpaceShip spaceShip;
 	private Laser laser;
 	
+	//Emenies list
+	private int direction = -1;
+	private List<EnemyShip> enemyShipList;
+	private int enemyShipPadding = 50;
+	
 	public GamePanel() {
 		initializeVariables();
 		initializeLayout();
+		initializeGame();
+	}
+	
+	private void initializeGame() {
+		for (int i = 0; i < Constants.ENEMYSHIP_ROW; i++) {
+			for (int j = 0; j < Constants.ENEMYSHIP_COLUMNS; j++) {
+				EnemyShip enemyShip = new EnemyShip(Constants.ENEMYSHIP_INIT_X + enemyShipPadding * j,
+						Constants.ENEMYSHIP_INIT_Y + enemyShipPadding * i);
+				this.enemyShipList.add(enemyShip);
+			}
+		}
 	}
 	
 	private void initializeVariables() {
+		this.enemyShipList = new ArrayList<>();
 		this.spaceShip = new SpaceShip();
 		this.laser = new Laser();
 		this.backgroundImage = ImageFactory.createImage(Image.BACKGROUND);
@@ -62,11 +82,20 @@ public class GamePanel extends JPanel {
 		if (inGame) {
 			drawPlayer(g);
 			drawLaser(g);
+			drawAliens(g);
 		} else {
 			if (timer.isRunning())
 				timer.stop();
 		}
 		Toolkit.getDefaultToolkit().sync();
+	}
+	
+	private void drawAliens(Graphics g) {
+		for (EnemyShip es : this.enemyShipList) {
+			if (es.isVisible()) {
+				g.drawImage(es.getImage(), es.getX(), es.getY(), this);
+			}
+		}
 	}
 	
 	public void doOneLoop() {
@@ -90,7 +119,6 @@ public class GamePanel extends JPanel {
 				laser = new Laser(laserX, laserY);
 			}
 		}
-		
 	}
 	
 	public void keyReleased(KeyEvent e) {
