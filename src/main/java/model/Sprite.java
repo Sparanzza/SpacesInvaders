@@ -4,17 +4,17 @@ package model;
 import java.awt.*;
 
 public abstract class Sprite {
-	private Image image;
-	private boolean dead;
-	
 	protected int x;
 	protected int y;
 	protected int dx;
+	private Image image;
+	private boolean dead;
 	
-	public abstract void move();
-	public Sprite(){
+	public Sprite() {
 		this.dead = false;
 	}
+	
+	public abstract void move();
 	
 	public Image getImage() {
 		return image;

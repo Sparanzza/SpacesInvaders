@@ -21,6 +21,9 @@ public class Constants {
 	public static final int SPACESHIP_HEIGHT = 34;
 	public static final int SPACESHIP_WIDTH = 28;
 	
+	// speed of the laser
+	public static final int LASER_VERTICAL_TRANSLATION = 4;
+	
 	
 	private Constants() {
 	}
