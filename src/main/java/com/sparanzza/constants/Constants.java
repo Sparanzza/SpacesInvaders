@@ -17,6 +17,10 @@ public class Constants {
 	//Speed
 	public static final int GAME_SPEED = 10;
 	
+	//Sizes images
+	public static final int SPACESHIP_HEIGHT = 34;
+	public static final int SPACESHIP_WIDTH = 28;
+	
 	
 	private Constants() {
 	}
