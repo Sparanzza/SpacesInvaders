@@ -31,6 +31,10 @@ public class Constants {
 	// speed of the laser
 	public static final int LASER_VERTICAL_TRANSLATION = 4;
 	
+	//padding border 50px
+	public static final int BORDER_PADDING = 50;
+	
+	public static final int GO_DOWN = 30;
 	
 	private Constants() {
 	}

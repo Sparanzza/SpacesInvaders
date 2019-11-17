@@ -28,7 +28,6 @@ public class Laser extends Sprite {
 	public void move() {
 		this.y -= Constants.LASER_VERTICAL_TRANSLATION;
 		if (this.y < 0) {
-			System.out.println("LASER BEAM DIE!");
 			this.setDead(true);
 		}
 	}

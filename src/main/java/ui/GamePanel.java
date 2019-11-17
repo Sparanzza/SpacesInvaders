@@ -12,10 +12,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-import static com.sparanzza.constants.Constants.BOARD_HEIGHT;
-import static com.sparanzza.constants.Constants.GAME_SPEED;
+import static com.sparanzza.constants.Constants.*;
 
 public class GamePanel extends JPanel {
 	private ImageIcon backgroundImage;
@@ -25,7 +25,7 @@ public class GamePanel extends JPanel {
 	private Laser laser;
 	
 	//Emenies list
-	private int direction = -1;
+	private int direction = 1;
 	private List<EnemyShip> enemyShipList;
 	private int enemyShipPadding = 50;
 	
@@ -106,6 +106,25 @@ public class GamePanel extends JPanel {
 	private void update() {
 		this.spaceShip.move();
 		this.laser.move();
+		
+		for (EnemyShip es : this.enemyShipList) {
+			// on the right
+			if ((es.getX() >= BOARD_WIDTH - 2 * BORDER_PADDING) && direction == 1 || ((es.getX() < BORDER_PADDING) && direction == -1)) {
+				direction *= -1;
+				
+				Iterator<EnemyShip> ufoIterator = enemyShipList.iterator();
+				while (ufoIterator.hasNext()) {
+					EnemyShip ufo = ufoIterator.next();
+					ufo.setY(ufo.getY() + GO_DOWN);
+				}
+			}
+			
+			
+			if (es.isVisible()) {
+				es.move(direction);
+			}
+		}
+		
 	}
 	
 	public void keyPressed(KeyEvent e) {
@@ -115,7 +134,6 @@ public class GamePanel extends JPanel {
 			int laserX = this.spaceShip.getX();
 			int laserY = this.spaceShip.getY();
 			if (inGame && laser.isDead()) {
-				System.out.println("LASER BEAM!");
 				laser = new Laser(laserX, laserY);
 			}
 		}
