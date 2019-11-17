@@ -5,8 +5,10 @@ import com.sparanzza.images.Image;
 import com.sparanzza.images.ImageFactory;
 
 import javax.swing.*;
+import java.awt.event.KeyEvent;
 
 public class SpaceShip extends Sprite {
+	private int velocity = 3;
 	
 	public SpaceShip() {
 		initialize();
@@ -25,6 +27,31 @@ public class SpaceShip extends Sprite {
 	
 	@Override
 	public void move() {
+		x += dx;
+		// Limit to beyond the canvas on the left and right side with padding
+		if (x < Constants.SPACESHIP_WIDTH) {
+			x = Constants.SPACESHIP_WIDTH;
+		}
+		if (x > Constants.BOARD_WIDTH - 2 * Constants.SPACESHIP_WIDTH) {
+			x = Constants.BOARD_WIDTH - 2 * Constants.SPACESHIP_WIDTH;
+		}
+		
+	}
 	
+	public void keyPressed(KeyEvent e) {
+		int key = e.getKeyCode();
+		// going to the left
+		if (key == KeyEvent.VK_LEFT) {
+			dx = -velocity;
+		}
+		// going to the right
+		if (key == KeyEvent.VK_RIGHT) {
+			dx = 3;
+		}
+	}
+	
+	public void keyReleased(KeyEvent e) {
+		// stop moving spaceship
+		if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_RIGHT) dx = 0;
 	}
 }

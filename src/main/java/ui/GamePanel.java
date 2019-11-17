@@ -1,5 +1,6 @@
 package ui;
 
+import com.sparanzza.callbacks.GameEventListener;
 import com.sparanzza.constants.Constants;
 import com.sparanzza.images.Image;
 import com.sparanzza.images.ImageFactory;
@@ -7,6 +8,7 @@ import model.SpaceShip;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 import static com.sparanzza.constants.Constants.BOARD_HEIGHT;
 import static com.sparanzza.constants.Constants.GAME_SPEED;
@@ -34,6 +36,8 @@ public class GamePanel extends JPanel {
 	}
 	
 	private void drawPlayer(Graphics g) {
+		addKeyListener(new GameEventListener(this));
+		setFocusable(true);
 		g.drawImage(spaceShip.getImage(), spaceShip.getX(), spaceShip.getY(), this);
 	}
 	
@@ -63,5 +67,14 @@ public class GamePanel extends JPanel {
 	
 	private void update() {
 		System.out.println("UPDATE");
+		this.spaceShip.move();
+	}
+	
+	public void keyPressed(KeyEvent e) {
+		this.spaceShip.keyPressed(e);
+	}
+	
+	public void keyReleased(KeyEvent e) {
+		this.spaceShip.keyReleased(e);
 	}
 }
