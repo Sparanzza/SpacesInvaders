@@ -1,4 +1,4 @@
-package model;
+package com.sparanzza.model;
 
 import com.sparanzza.images.Image;
 import com.sparanzza.images.ImageFactory;

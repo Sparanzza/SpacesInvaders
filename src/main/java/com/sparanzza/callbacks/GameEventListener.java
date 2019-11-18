@@ -1,6 +1,6 @@
 package com.sparanzza.callbacks;
 
-import ui.GamePanel;
+import com.sparanzza.ui.GamePanel;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

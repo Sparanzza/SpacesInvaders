@@ -1,6 +1,6 @@
 package com.sparanzza.app;
 
-import ui.GameMainFrame;
+import com.sparanzza.ui.GameMainFrame;
 
 import java.awt.*;
 

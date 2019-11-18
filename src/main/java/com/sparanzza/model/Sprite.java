@@ -1,4 +1,4 @@
-package model;
+package com.sparanzza.model;
 
 
 import java.awt.*;

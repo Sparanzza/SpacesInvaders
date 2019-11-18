@@ -1,4 +1,4 @@
-package ui;
+package com.sparanzza.ui;
 
 import com.sparanzza.images.Image;
 import com.sparanzza.images.ImageFactory;

@@ -1,13 +1,13 @@
-package ui;
+package com.sparanzza.ui;
 
 import com.sparanzza.callbacks.GameEventListener;
 import com.sparanzza.constants.Constants;
 import com.sparanzza.images.Image;
 import com.sparanzza.images.ImageFactory;
-import model.Bomb;
-import model.EnemyShip;
-import model.Laser;
-import model.SpaceShip;
+import com.sparanzza.model.Bomb;
+import com.sparanzza.model.EnemyShip;
+import com.sparanzza.model.Laser;
+import com.sparanzza.model.SpaceShip;
 
 import javax.swing.*;
 import java.awt.*;

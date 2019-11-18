@@ -1,4 +1,4 @@
-package ui;
+package com.sparanzza.ui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
