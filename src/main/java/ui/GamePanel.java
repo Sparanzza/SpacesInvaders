@@ -121,7 +121,26 @@ public class GamePanel extends JPanel {
 	
 	private void update() {
 		this.spaceShip.move();
-		this.laser.move();
+		if (!laser.isDead()) {
+			
+			int shotX = laser.getX();
+			int shotY = laser.getY();
+			
+			for (EnemyShip alien : this.enemyShipList) {
+				if (!alien.isVisible()) continue;
+				int alienX = alien.getX();
+				int alienY = alien.getY();
+				
+				// collision detection algorithm
+				if (shotX >= (alienX) && shotX <= (alienX + ENEMYSHIP_WIDTH)
+						&& shotY >= (alienY) && shotY <= (alienY + ENEMYSHIP_HEIGHT)) {
+					alien.setVisible(false);
+					laser.setDead(true);
+				}
+			}
+			
+			this.laser.move();
+		}
 		
 		for (EnemyShip es : this.enemyShipList) {
 			// on the right
