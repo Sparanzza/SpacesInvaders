@@ -37,6 +37,8 @@ public class Constants {
 	
 	public static final int GO_DOWN = 30;
 	public static final double BOMB_DROPPING_PROBABOLITY = 0.001;
+	public static final String GAME_OVER = "Game Over";
+	public static final String WIN = "You Win!";
 	
 	private Constants() {
 	}

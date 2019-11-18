@@ -33,6 +33,9 @@ public class GamePanel extends JPanel {
 	
 	private List<Bomb> bombsList;
 	private Random generator;
+	private String message;
+	
+	private int deaths;
 	
 	public GamePanel() {
 		initializeVariables();
@@ -94,8 +97,18 @@ public class GamePanel extends JPanel {
 		} else {
 			if (timer.isRunning())
 				timer.stop();
+			drawGameOver(g);
 		}
 		Toolkit.getDefaultToolkit().sync();
+	}
+	
+	private void drawGameOver(Graphics g) {
+		g.drawImage(backgroundImage.getImage(), 0, 0, null);
+		Font font = new Font("Helvetica", Font.BOLD, 50);
+		FontMetrics fontMetrics = this.getFontMetrics(font);
+		g.setColor(Color.white);
+		g.setFont(font);
+		g.drawString(message, (BOARD_WIDTH - fontMetrics.stringWidth(message)) / 2, BOARD_HEIGHT / 2 - 100);
 	}
 	
 	private void drawBombs(Graphics g) {
@@ -120,7 +133,18 @@ public class GamePanel extends JPanel {
 	}
 	
 	private void update() {
+		if (spaceShip.isDead()) {
+			inGame = false;
+			message = Constants.GAME_OVER;
+		}
+		
+		if (deaths == this.enemyShipList.size()) {
+			inGame = false;
+			message = Constants.WIN;
+		}
+		
 		this.spaceShip.move();
+		
 		if (!laser.isDead()) {
 			
 			int shotX = laser.getX();
@@ -136,6 +160,7 @@ public class GamePanel extends JPanel {
 						&& shotY >= (alienY) && shotY <= (alienY + ENEMYSHIP_HEIGHT)) {
 					alien.setVisible(false);
 					laser.setDead(true);
+					deaths++;
 				}
 			}
 			
@@ -164,6 +189,21 @@ public class GamePanel extends JPanel {
 			}
 		}
 		for (Bomb b : bombsList) {
+			
+			int bombX = b.getX();
+			int bombY = b.getY();
+			int spaceShipX = spaceShip.getX();
+			int spaceShipY = spaceShip.getY();
+			
+			if (!b.isDead() && !spaceShip.isDead()) {
+				if (bombX >= (spaceShipX) && bombX <= (spaceShipX + SPACESHIP_WIDTH)
+						&& bombY >= (spaceShipY) && bombY <= (spaceShipY + SPACESHIP_HEIGHT)) {
+					spaceShip.setDead(true);
+					b.setDead(true);
+				}
+			}
+			
+			
 			if (!b.isDead()) {
 				b.move();
 			}
