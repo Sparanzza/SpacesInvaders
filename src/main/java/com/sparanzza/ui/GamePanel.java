@@ -8,6 +8,7 @@ import com.sparanzza.model.Bomb;
 import com.sparanzza.model.EnemyShip;
 import com.sparanzza.model.Laser;
 import com.sparanzza.model.SpaceShip;
+import com.sparanzza.sound.SoundFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,6 +37,7 @@ public class GamePanel extends JPanel {
 	private String message;
 	
 	private int deaths;
+	private SoundFactory soundFactory;
 	
 	public GamePanel() {
 		initializeVariables();
@@ -54,6 +56,7 @@ public class GamePanel extends JPanel {
 	}
 	
 	private void initializeVariables() {
+		this.soundFactory = new SoundFactory();
 		this.enemyShipList = new ArrayList<>();
 		this.bombsList = new ArrayList<>();
 		this.spaceShip = new SpaceShip();
@@ -158,6 +161,7 @@ public class GamePanel extends JPanel {
 				// collision detection algorithm
 				if (shotX >= (alienX) && shotX <= (alienX + ENEMYSHIP_WIDTH)
 						&& shotY >= (alienY) && shotY <= (alienY + ENEMYSHIP_HEIGHT)) {
+					soundFactory.explosion();
 					alien.setVisible(false);
 					laser.setDead(true);
 					deaths++;
@@ -221,6 +225,7 @@ public class GamePanel extends JPanel {
 			int laserX = this.spaceShip.getX();
 			int laserY = this.spaceShip.getY();
 			if (inGame && laser.isDead()) {
+				soundFactory.laser();
 				laser = new Laser(laserX, laserY);
 			}
 		}
