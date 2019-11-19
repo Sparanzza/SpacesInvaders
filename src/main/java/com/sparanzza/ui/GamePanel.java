@@ -39,6 +39,9 @@ public class GamePanel extends JPanel {
 	private int deaths;
 	private SoundFactory soundFactory;
 	
+	private int score = 0;
+	private int shields = 2;
+	
 	public GamePanel() {
 		initializeVariables();
 		initializeLayout();
@@ -93,6 +96,7 @@ public class GamePanel extends JPanel {
 	
 	private void doDrawing(Graphics g) {
 		if (inGame) {
+			drawScores(g);
 			drawPlayer(g);
 			drawLaser(g);
 			drawAliens(g);
@@ -103,6 +107,16 @@ public class GamePanel extends JPanel {
 			drawGameOver(g);
 		}
 		Toolkit.getDefaultToolkit().sync();
+	}
+	
+	private void drawScores(Graphics g) {
+		Font font = new Font("Helvetica", Font.BOLD, 20);
+		FontMetrics fontMetrics = this.getFontMetrics(font);
+		g.setColor(Color.gray);
+		g.setFont(font);
+		g.drawString("Score: " + score, (BOARD_WIDTH - 150), 50);
+		g.drawString("Shields: " + shields, 50, 50);
+		
 	}
 	
 	private void drawGameOver(Graphics g) {
@@ -162,6 +176,7 @@ public class GamePanel extends JPanel {
 				if (shotX >= (alienX) && shotX <= (alienX + ENEMYSHIP_WIDTH)
 						&& shotY >= (alienY) && shotY <= (alienY + ENEMYSHIP_HEIGHT)) {
 					soundFactory.explosion();
+					score += 20;
 					alien.setVisible(false);
 					laser.setDead(true);
 					deaths++;
@@ -206,8 +221,9 @@ public class GamePanel extends JPanel {
 			if (!b.isDead() && !spaceShip.isDead()) {
 				if (bombX >= (spaceShipX) && bombX <= (spaceShipX + SPACESHIP_WIDTH)
 						&& bombY >= (spaceShipY) && bombY <= (spaceShipY + SPACESHIP_HEIGHT)) {
-					spaceShip.setDead(true);
 					b.setDead(true);
+					shields--;
+					if (shields < 0) spaceShip.setDead(true);
 				}
 			}
 			
