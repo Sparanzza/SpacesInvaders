@@ -180,6 +180,10 @@ public class GamePanel extends JPanel {
 			}
 			
 			if (es.isVisible()) {
+				// if the enemy ship reach the bottom of the screen , game over
+				if (es.getY() > BOARD_HEIGHT - 100 - SPACESHIP_HEIGHT) {
+					spaceShip.setDead(true);
+				}
 				es.move(direction);
 			}
 			// generate bombs by ufo
